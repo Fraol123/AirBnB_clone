@@ -93,11 +93,10 @@ class HBNBCommand(cmd.Cmd):
             print(objdict["{}.{}".format(argl[0], argl[1])])
 
     def do_destroy(self, arg):
-        """Usage: destroy <class> <id>
-        Delate a class instance of a given id."""
-
+        """Usage: destroy <class> <id> or <class>.destroy(<id>)
+        Delete a class instance of a given id."""
         argl = parse(arg)
-        objdict = models.storage.all()
+        objdict = storage.all()
         if len(argl) == 0:
             print("** class name missing **")
         elif argl[0] not in HBNBCommand.__classes:
@@ -108,7 +107,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
         else:
             del objdict["{}.{}".format(argl[0], argl[1])]
-            models.storage.save()
+            storage.save()
 
     def do_all(self, arg):
         """Usage: all or all <class> or <class>.all()
@@ -127,12 +126,13 @@ class HBNBCommand(cmd.Cmd):
             print(objl)
 
     def do_update(self, arg):
-        """Usage: update <class> <id> <attribute_name> <attribute_value>
+        """Usage: update <class> <id> <attribute_name> <attribute_value> or
+       <class>.update(<id>, <attribute_name>, <attribute_value>) or
+       <class>.update(<id>, <dictionary>)
         Update a class instance of a given id by adding or updating
         a given attribute key/value pair or dictionary."""
-
         argl = parse(arg)
-        objdict = models.storage.all()
+        objdict = storage.all()
 
         if len(argl) == 0:
             print("** class name missing **")
@@ -172,7 +172,8 @@ class HBNBCommand(cmd.Cmd):
                     obj.__dict__[k] = valtype(v)
                 else:
                     obj.__dict__[k] = v
-        models.storage.save()
+        storage.save()
+
 
 
 if __name__ == "__main__":
