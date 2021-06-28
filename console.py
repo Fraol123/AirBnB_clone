@@ -64,7 +64,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         """Usage: create <class>
-        creats a new class instance and print its id.
+        Create a new class instance and print its id.
         """
         argl = parse(arg)
         if len(argl) == 0:
@@ -97,7 +97,7 @@ class HBNBCommand(cmd.Cmd):
         Delate a class instance of a given id."""
 
         argl = parse(arg)
-        objdict = storage.all()
+        objdict = models.storage.all()
         if len(argl) == 0:
             print("** class name missing **")
         elif argl[0] not in HBNBCommand.__classes:
@@ -108,24 +108,23 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
         else:
             del objdict["{}.{}".format(argl[0], argl[1])]
-            storage.save()
+            models.storage.save()
 
     def do_all(self, arg):
-        """Usage: all or all <class>
-        Display string representation of all instances of a given class.
+        """Usage: all or all <class> or <class>.all()
+        Display string representations of all instances of a given class.
         If no class is specified, displays all instantiated objects."""
-
         argl = parse(arg)
-        if len(argl) > 0 and arg[0] not in HBNBCommand.__classes:
-            print("** class doesn't esist **")
+        if len(argl) > 0 and argl[0] not in HBNBCommand.__classes:
+            print("** class doesn't exist **")
         else:
-            obj1 = []
+            objl = []
             for obj in storage.all().values():
-                if len(argl) > 0 and arg[0] == obj.__class__.__name__:
-                    obj.append(obj.__str__())
+                if len(argl) > 0 and argl[0] == obj.__class__.__name__:
+                    objl.append(obj.__str__())
                 elif len(argl) == 0:
-                    obj1.append(obj.__str__())
-            print(obj1)
+                    objl.append(obj.__str__())
+            print(objl)
 
     def do_update(self, arg):
         """Usage: update <class> <id> <attribute_name> <attribute_value>
@@ -133,7 +132,7 @@ class HBNBCommand(cmd.Cmd):
         a given attribute key/value pair or dictionary."""
 
         argl = parse(arg)
-        objdict = storage.all()
+        objdict = models.storage.all()
 
         if len(argl) == 0:
             print("** class name missing **")
@@ -173,7 +172,7 @@ class HBNBCommand(cmd.Cmd):
                     obj.__dict__[k] = valtype(v)
                 else:
                     obj.__dict__[k] = v
-        storage.save()
+        models.storage.save()
 
 
 if __name__ == "__main__":
