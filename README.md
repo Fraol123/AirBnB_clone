@@ -135,9 +135,9 @@ _at': datetime.datetime(2017, 9, 28, 9, 50, 46, 772123)}
 No known bugs at this time.
 
 ## Authors
-Fraol Tolera
-Girum Ajebe
-Taremowei Appah
+Fraol Tolera - [Github](https://github.com/Fraol123)
+Girum Ajebe - [Github](https://github.com/girumajebe)
+Taremowei Appah - [Github](https://github.com/grillzwitu)
 
 
 ## License
