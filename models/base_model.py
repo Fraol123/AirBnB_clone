@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """Base model module"""
+
 import models
 from uuid import uuid4
 from datetime import datetime
@@ -42,6 +43,5 @@ class BaseModel():
 
     def __str__(self):
         """Return the print representation of the base model"""
-
         clname = self.__class__.__name__
         return "[{}]({}) {}".format(clname, self.id, self.__dict__)
