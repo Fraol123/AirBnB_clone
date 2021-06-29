@@ -2,6 +2,7 @@
 """Defines a user module"""
 from models.base_model import BaseModel
 
+
 class User(BaseModel):
     """Represent a user
     Attributes:

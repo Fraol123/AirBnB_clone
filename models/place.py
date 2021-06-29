@@ -2,10 +2,10 @@
 """Module that inherits from BaseModel"""
 from models.base_model import BaseModel
 
+
 class Place(BaseModel):
     """class the represent state
     Attributes:
-
     city_id: empty string: it will be the City.id
     user_id: empty string: it will be the User.id
     name:  empty string
@@ -16,8 +16,8 @@ class Place(BaseModel):
     price_by_night: integer - 0
     latitude: float - 0.0
     longitude: float - 0.0
-    amenity_ids: list of str - empty list: it will be the list of Amenity.id later
-
+    amenity_ids: list of str - empty list:
+    it will be the list of Amenity.id later
     """
     name = ""
     city_id = ""

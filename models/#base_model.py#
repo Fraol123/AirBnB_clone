@@ -20,7 +20,7 @@ class BaseModel():
 
         if len(kwargs) != 0:
             for k, v in kwargs.items():
-                if k == "created_at" or k == "updated_at":
+                if k == "created_at" or takes value and format to convert from str representation to time
                     self.__dict__[k] = datetime.strptime(v, tform)
                 else:
                     self.__dict__[k] = v

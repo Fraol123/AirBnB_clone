@@ -2,6 +2,7 @@
 """Module that Define city class"""
 from models.base_model import BaseModel
 
+
 class City(BaseModel):
     """class the represent city
     Attribute:
