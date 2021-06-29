@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """unittest for BaseModel"""
 import unittest
+from unittest import mock
 from models.base_model import BaseModel
 import models
 from datetime import datetime
@@ -60,13 +61,25 @@ class TestBaseModel_Instantiation(unittest.TestCase):
         self.assertEqual(bm.updated_at, dt)
 
 
-class TestBaseModel_save(unittest.TestCase):
-    """unittest for testing save of BaseModel"""
-    pass
-
-
 class TestBaseModel_to_dict(unittest.TestCase):
     """unittest for testing dict of BaseModel"""
+
+    def test_to_dict(self):
+        """Test conversion of object attributes to dictionary for json"""
+        my_model = BaseModel()
+        my_model.name = "Holberton"
+        my_model.my_number = 89
+        d = my_model.to_dict()
+        expected_attrs = ["id",
+                          "created_at",
+                          "updated_at",
+                          "name",
+                          "my_number",
+                          "__class__"]
+        self.assertCountEqual(d.keys(), expected_attrs)
+        self.assertEqual(d['__class__'], 'BaseModel')
+        self.assertEqual(d['name'], "Holberton")
+        self.assertEqual(d['my_number'], 89)
 
     def test_to_dict_type(self):
         bm = BaseModel()
@@ -109,5 +122,24 @@ class TestBaseModel_to_dict(unittest.TestCase):
         bm = BaseModel()
         with self.assertRaises(TypeError):
             bm.to_dict(None)
+
+
+class TestBaseModel_save(unittest.TestCase):
+    """unittest for testing save of BaseModel"""
+
+    @mock.patch('models.storage')
+    def test_save(self, mock_storage):
+        """Test that save method updates `updated_at` and calls
+        `storage.save`"""
+        inst = BaseModel()
+        old_created_at = inst.created_at
+        old_updated_at = inst.updated_at
+        inst.save()
+        new_created_at = inst.created_at
+        new_updated_at = inst.updated_at
+        self.assertNotEqual(old_updated_at, new_updated_at)
+        self.assertEqual(old_created_at, new_created_at)
+        self.assertTrue(mock_storage.save.called)
+
 if __name__ == "__main__":
     unittest.main()

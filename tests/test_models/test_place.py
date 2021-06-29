@@ -2,6 +2,7 @@
 import unittest
 from models.place import Place
 
+
 class TestPlace_instantiation(unittest.TestCase):
     """Unittests for testing instantiation of the Place class."""
 
@@ -76,7 +77,6 @@ class TestPlace_instantiation(unittest.TestCase):
         self.assertEqual(list, type(Place.amenity_ids))
         self.assertIn("amenity_ids", dir(pl))
         self.assertNotIn("amenity_ids", pl.__dict__)
-
 
 if __name__ == "__main__":
     unittest.main()

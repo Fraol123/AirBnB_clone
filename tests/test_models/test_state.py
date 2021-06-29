@@ -3,6 +3,7 @@
 import unittest
 from models.state import State
 
+
 class TestState_instantiation(unittest.TestCase):
     """Unittests for testing instantiation of the State class."""
 
@@ -14,7 +15,6 @@ class TestState_instantiation(unittest.TestCase):
         self.assertEqual(str, type(State.name))
         self.assertIn("name", dir(st))
         self.assertNotIn("name", st.__dict__)
-
 
 if __name__ == "__main__":
     unittest.main()

@@ -8,28 +8,8 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
-import re
-from shlex import split
+import shlex
 from models.user import User
-
-
-def parse(arg):
-    # match curly braces dot ast and qm in args
-    curly_braces = re.search(r"\{(.*?)\}", arg)
-    brackets = re.search(r"\[(.*?)\]", arg)
-    if curly_braces is None:
-        if brackets is None:
-            return [i.strip(",") for i in split(arg)]
-        else:
-            lexer = split(arg[:brackets.span()[0]])
-            retl = [i.strip(",") for i in lexer]
-            retl.append(brackets.group())
-            return retl
-    else:
-        lexer = split(arg[:curly_braces.span()[0]])
-        retl = [i.strip(",") for i in lexer]
-        retl.append(curly_braces.group())
-        return retl
 
 
 class HBNBCommand(cmd.Cmd):
@@ -38,7 +18,7 @@ class HBNBCommand(cmd.Cmd):
         prompt (str): the command prompt.
 
     """
-    prompt = "(hbnb)"
+    prompt = "(hbnb) "
     __classes = {
         "BaseModel",
         "User",
@@ -50,7 +30,7 @@ class HBNBCommand(cmd.Cmd):
     }
 
     def do_quit(self, arg):
-        """quit command to exit the program"""
+        """Quit command to exit the program"""
         return True
 
     def do_EOF(self, arg):
@@ -59,14 +39,14 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def emptyline(self):
-        """do nothing upon receiving empty line"""
+        """Do nothing upon receiving empty line"""
         pass
 
     def do_create(self, arg):
         """Usage: create <class>
         Create a new class instance and print its id.
         """
-        argl = parse(arg)
+        argl = shlex.split(arg)
         if len(argl) == 0:
             print("** class name missing **")
         elif argl[0] not in HBNBCommand.__classes:
@@ -79,7 +59,7 @@ class HBNBCommand(cmd.Cmd):
         """Usage: show <class> <id>
         Display the string representation of a class instance of a given id.
         """
-        argl = parse(arg)
+        argl = shlex.split(arg)
         objdict = storage.all()
         if len(argl) == 0:
             print("** class name missing **")
@@ -93,9 +73,9 @@ class HBNBCommand(cmd.Cmd):
             print(objdict["{}.{}".format(argl[0], argl[1])])
 
     def do_destroy(self, arg):
-        """Usage: destroy <class> <id> 
+        """Usage: destroy <class> <id>
         Delete a class instance of a given id."""
-        argl = parse(arg)
+        argl = shlex.split(arg)
         objdict = storage.all()
         if len(argl) == 0:
             print("** class name missing **")
@@ -110,10 +90,10 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
 
     def do_all(self, arg):
-        """Usage: all or all <class> 
+        """Usage: all or all <class>
         Display string representations of all instances of a given class.
         If no class is specified, displays all instantiated objects."""
-        argl = parse(arg)
+        argl = shlex.split(arg)
         if len(argl) > 0 and argl[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         else:
@@ -126,10 +106,10 @@ class HBNBCommand(cmd.Cmd):
             print(objl)
 
     def do_update(self, arg):
-        """Usage: update <class> <id> <attribute_name> <attribute_value> 
+        """Usage: update <class> <id> <attribute_name> <attribute_value>
          Update a class instance of a given id by adding or updating
         a given attribute key/value pair or dictionary."""
-        argl = parse(arg)
+        argl = shlex.split(arg)
         objdict = storage.all()
 
         if len(argl) == 0:

@@ -3,6 +3,7 @@
 from models.amenity import Amenity
 import unittest
 
+
 class TestAmenity_instantiation(unittest.TestCase):
     """test for amenity instantination"""
 

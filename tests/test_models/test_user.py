@@ -2,8 +2,9 @@
 """Module tests for usr.py"""
 
 import models
-import  unittest
+import unittest
 from models.user import User
+
 
 class testUser_instantination(unittest.TestCase):
     """Test for instantiation"""

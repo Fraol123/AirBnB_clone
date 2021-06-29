@@ -8,6 +8,7 @@ from models.base_model import BaseModel
 from models.user import User
 from models.engine.file_storage import FileStorage
 
+
 class testFilestorage_instantination(unittest.TestCase):
     """unittest for instantiation of file storage class"""
 
@@ -30,13 +31,6 @@ class testFilestorage_instantination(unittest.TestCase):
 
 class TestFilestorage_methods(unittest.TestCase):
     """unitest for the methdos of Filestorage"""
-
-
-
-
-
-
-
 
 if __name__ == "__main__":
     unittest.main()
