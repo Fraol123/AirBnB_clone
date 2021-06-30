@@ -5,6 +5,8 @@ import models
 from uuid import uuid4
 from datetime import datetime
 
+tform = "%Y-%m-%dT%H:%M:%S.%f"
+
 
 class BaseModel():
     """Defines all common attributes/methods for other classes"""
@@ -14,19 +16,26 @@ class BaseModel():
                 *arg(any) = unused
                 **kwargs(dict) = key/value pairs of attribute
         """
-        tform = "%Y-%m-%dT%H:%M:%S.%f"
-        self.id = str(uuid4())
-        self.created_at = datetime.today()
-        self.updated_at = datetime.today()
 
-        if len(kwargs) != 0:
+        if kwargs:
             for k, v in kwargs.items():
-                if k == "created_at" or k == "updated_at":
-                    self.__dict__[k] = datetime.strptime(v, tform)
-                else:
-                    self.__dict__[k] = v
+                if k != "__class__":
+                    setattr(self, k, v)
+            if hasattr(self, "created_at") and type(self.created_at) is str:
+                self.created_at = datetime.strptime(kwargs["created_at"], tform)
+            if hasattr(self, "updated_at") and type(self.updated_at) is str:
+                self.updated_at = datetime.strptime(kwargs["updated_at"], tform)
         else:
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = self.created_at
             models.storage.new(self)
+            models.storage.save()
+
+    def __str__(self):
+        """Return the print representation of the base model"""
+        clname = self.__class__.__name__
+        return "[{}]({}) {}".format(clname, self.id, self.__dict__)
 
     def save(self):
         """updates updated_at with the current datetime"""
@@ -40,8 +49,3 @@ class BaseModel():
         rdict["updated_at"] = self.updated_at.isoformat()
         rdict["__class__"] = self.__class__.__name__
         return rdict
-
-    def __str__(self):
-        """Return the print representation of the base model"""
-        clname = self.__class__.__name__
-        return "[{}]({}) {}".format(clname, self.id, self.__dict__)
