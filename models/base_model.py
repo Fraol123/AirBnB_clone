@@ -21,10 +21,14 @@ class BaseModel():
             for k, v in kwargs.items():
                 if k != "__class__":
                     setattr(self, k, v)
-            if hasattr(self, "created_at") and type(self.created_at) is str:
-                self.created_at = datetime.strptime(kwargs["created_at"], tform)
-            if hasattr(self, "updated_at") and type(self.updated_at) is str:
-                self.updated_at = datetime.strptime(kwargs["updated_at"], tform)
+            if hasattr(self, "created_at") and \
+               type(self.created_at) is str:
+                self.created_at = datetime.strptime(kwargs
+                                                    ["created_at"], tform)
+            if hasattr(self, "updated_at") and \
+               type(self.updated_at) is str:
+                self.updated_at = datetime.strptime(kwargs
+                                                    ["updated_at"], tform)
         else:
             self.id = str(uuid4())
             self.created_at = datetime.now()
