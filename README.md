@@ -70,7 +70,7 @@ TestBaseModel class:
 * `def test_is_base_model(self)` - Test that the instatiation of a BaseModel works
 * `def test_created_at_instantiation(self)` - Test created_at is a pub. instance attribute of type datetime
 * `def test_updated_at_instantiation(self)` - Test updated_at is a pub. instance attribute of type datetime
-* `def test_diff_datetime_objs(self)` - Test that two BaseModel instances have different datetime objects
+* `def test_diff_datetime_objs(self)` - Test That two BaseModel instances have different datetime objects
 
 [/test_models/test_amenity.py](/tests/test_models/test_amenity.py) - Contains the TestAmenityDocs class:
 * `def setUpClass(cls)` - Set up for the doc tests
