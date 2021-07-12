@@ -75,12 +75,12 @@
     margin-bottom: auto;
 }
 
-guest_image {
+.guest_image {
     margin-left: auto;
     margin-right: auto;
     height: 50px;
     width: 50px;
-    background: url("../images/icon_groop.jpg") no-repeat center;
+    background: url("../images/icon_group.png") no-repeat center;
 }
 
 .bed_image {
